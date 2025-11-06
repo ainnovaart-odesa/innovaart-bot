@@ -13,11 +13,27 @@ bot = telebot.TeleBot(TOKEN)
 # --- Кнопки ---
 def main_menu():
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    markup.add(types.KeyboardButton("➕ Створити направлення"))
-    markup.add(types.KeyboardButton("📘 Інструкція"), types.KeyboardButton("❌ Скасувати"))
+    btn1 = types.KeyboardButton("➕ Створити направлення")
+    btn2 = types.KeyboardButton("📘 Інструкція")
+    btn3 = types.KeyboardButton("❌ Скасувати")
+    btn4 = types.KeyboardButton("🔗 Посилання")  # нова кнопка
+    markup.add(btn1)
+    markup.add(btn2, btn3)
+    markup.add(btn4)
     return markup
-
-
+def check_cancel(message):
+    if message.text == "❌ Скасувати":
+        bot.send_message(message.chat.id, "✅ Опитування скасовано.", reply_markup=main_menu())
+        return True
+    return False
+@bot.message_handler(func=lambda message: message.text == "🔗 Посилання")
+def send_links(message):
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("🌐 Сайт", url="https://www.innovaart.com.ua/"))
+    markup.add(types.InlineKeyboardButton("💰 Прайс", url="https://www.innovaart.com.ua/price_ukr/"))
+    markup.add(types.InlineKeyboardButton("📸 Instagram", url="https://www.instagram.com/innovaart.od?igsh=OHh4YmVzc3lyc20y"))
+    
+    bot.send_message(message.chat.id, "Оберіть корисне посилання:", reply_markup=markup)
 # --- Команда /start ---
 @bot.message_handler(commands=['start'])
 def start(message):
@@ -109,5 +125,6 @@ def run_web():
 
 threading.Thread(target=run_web).start()
 bot.polling(none_stop=True)
+
 
 

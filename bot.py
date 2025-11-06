@@ -21,6 +21,7 @@ def main_menu():
 @bot.message_handler(commands=['start'])
 def start(message):
     bot.send_message(message.chat.id, "Вітаю! Оберіть дію:", reply_markup=main_menu())
+    
 # --- Додаємо мінівебсервер ---
 app = Flask(__name__)
 
@@ -79,6 +80,7 @@ def instructions(message):
 
 threading.Thread(target=run_web).start()
 bot.polling(none_stop=True)
+
 
 
 

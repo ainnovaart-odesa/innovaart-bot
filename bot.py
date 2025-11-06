@@ -12,7 +12,7 @@ bot = telebot.TeleBot(TOKEN)
 def start(message):
     bot.reply_to(message, "Вітаю! Для створення направлення натисніть /new")
 # --- Додаємо мінівебсервер ---
-app = Flask(name)
+app = Flask(__name__)
 
 @app.route('/')
 def home():
@@ -56,4 +56,5 @@ def send_to_group(message, patient, phone, diagnosis, doctor):
 
 threading.Thread(target=run_web).start()
 bot.polling(none_stop=True)
+
 

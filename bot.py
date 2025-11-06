@@ -1,3 +1,5 @@
+from flask import Flask
+import threading
 import os
 import telebot
 
@@ -40,5 +42,6 @@ def send_to_group(message, patient, phone, diagnosis, doctor):
     text = f"🔔 *Нове направлення*\n\n👤 Пацієнт: {patient}\n📞 Телефон: {phone}\n🩺 Діагноз: {diagnosis}\n👨‍⚕️ Лікар: {doctor}\n📳 Контакт лікаря: {doctor_phone}"
     bot.send_message(CHAT_ID, text, parse_mode='Markdown')
     bot.reply_to(message, "✅ Направлення надіслано у групу.")
+
 
 bot.infinity_polling()

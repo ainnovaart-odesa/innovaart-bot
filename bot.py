@@ -11,6 +11,16 @@ bot = telebot.TeleBot(TOKEN)
 @bot.message_handler(commands=['start'])
 def start(message):
     bot.reply_to(message, "Вітаю! Для створення направлення натисніть /new")
+# --- Додаємо мінівебсервер ---
+app = Flask(name)
+
+@app.route('/')
+def home():
+    return "Bot is running!"
+
+def run_web():
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
 
 @bot.message_handler(commands=['new'])
 def new(message):
@@ -44,4 +54,6 @@ def send_to_group(message, patient, phone, diagnosis, doctor):
     bot.reply_to(message, "✅ Направлення надіслано у групу.")
 
 
-bot.infinity_polling()
+threading.Thread(target=run_web).start()
+bot.polling(none_stop=True)
+

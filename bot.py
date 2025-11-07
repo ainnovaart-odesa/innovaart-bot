@@ -40,7 +40,7 @@ def escape_md(text):
 # ============================
 # Flask для Render
 # ============================
-app = Flask (_ _name_ _)
+app = Flask(__name__)
 
 @app.route('/')
 def home():
@@ -139,6 +139,7 @@ def send_to_group (message) :
 # Старт polling
 # ============================
 bot.infinity_polling()
+
 
 
 

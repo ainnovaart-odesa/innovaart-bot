@@ -24,7 +24,7 @@ def main_menu():
 # ============================
 # Перевірка на скасування
 # ============================
-def check_cancel(message):
+def check_cancel (message) :
     if message.text == "❌ Скасувати":
         user_data.pop(message.from_user.id, None)
         bot.send_message(message.chat.id, "✅ Опитування скасовано.", reply_markup=main_menu())
@@ -140,6 +140,7 @@ if check_cancel(message): return
 # Старт polling
 # ============================
 bot.infinity_polling()
+
 
 
 

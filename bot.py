@@ -40,7 +40,7 @@ def escape_md(text):
 # ============================
 # Flask для Render
 # ============================
-app = Flask(__name__)
+app = Flask (_ _name_ _)
 
 @app.route('/')
 def home():
@@ -116,9 +116,8 @@ def process_doctor(message):
     msg = bot.reply_to(message, "Введіть контакт лікаря:")
     bot.register_next_step_handler(msg, send_to_group)
 
-def send_to_group(message):
-
-if check_cancel(message): return
+def send_to_group (message) :
+    if check_cancel(message): return
     user_data[message.from_user.id]["doctor_phone"] = message.text
     data = user_data[message.from_user.id]
 
@@ -140,6 +139,7 @@ if check_cancel(message): return
 # Старт polling
 # ============================
 bot.infinity_polling()
+
 
 
 

@@ -1,4 +1,3 @@
-from flask import Flask, request
 import os
 import telebot
 from telebot import types
@@ -110,7 +109,8 @@ def send_to_group(message):
         f"👤 Пацієнт: {escape_md(data['patient'])}\n"
         f"📞 Телефон: {escape_md(data['phone'])}\n"
         f"🩺 Діагноз: {escape_md(data['diagnosis'])}\n"
-        f"👨‍⚕️ Лікар: {escape_md(data['doctor'])}\n"
+
+f"👨‍⚕️ Лікар: {escape_md(data['doctor'])}\n"
         f"📳 Контакт лікаря: {escape_md(data['doctor_phone'])}"
     )
 
@@ -119,24 +119,12 @@ def send_to_group(message):
     user_data.pop(message.from_user.id, None)
 
 # ============================
-# Flask Webhook
+# Запуск POLLING (24/7)
 # ============================
-app = Flask(__name__)
-
-@app.route('/webhook', methods=['POST'])
-def webhook():
-    json_update = request.get_data().decode('utf-8')
-    bot.process_new_updates([telebot.types.Update.de_json(json_update)])
-    return "OK", 200
-
-@app.route('/')
-def home():
-    return "Bot is live!", 200
-
-if __name__ == '__main__':
-    bot.remove_webhook()
-    bot.set_webhook(url="https://innovaart-bot.onrender.com/webhook")
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+if name == "__main__":
+    bot.remove_webhook()  # важливо! вимикаємо вебхук
+    print("Bot is running via polling...")
+    bot.infinity_polling(timeout=60, long_polling_timeout=60)
 
 
 

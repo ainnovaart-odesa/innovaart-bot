@@ -121,10 +121,11 @@ f"👨‍⚕️ Лікар: {escape_md(data['doctor'])}\n"
 # ============================
 # Запуск POLLING (24/7)
 # ============================
-if name == "__main__":
+if __name__ == "__main__":
     bot.remove_webhook()  # важливо! вимикаємо вебхук
     print("Bot is running via polling...")
     bot.infinity_polling(timeout=60, long_polling_timeout=60)
+
 
 
 
